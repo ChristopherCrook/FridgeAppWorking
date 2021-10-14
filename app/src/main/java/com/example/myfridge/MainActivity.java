@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the Refrigerator to hold the users items
         theFridge = new Refrigerator(fridge_db);
 
-        FloatingActionButton addGroceryButton = null;
+        FloatingActionButton addGroceryButton;
         addGroceryButton = findViewById(R.id.addGroceryButton);
         addGroceryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton addAlarmButton = null;
+        FloatingActionButton addAlarmButton;
         addAlarmButton = findViewById(R.id.addAlarmButton);
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button fridgeGoToButton = null;
+        Button fridgeGoToButton;
         fridgeGoToButton = findViewById(R.id.fridgeButton);
         fridgeGoToButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

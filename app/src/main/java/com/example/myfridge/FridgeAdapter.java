@@ -49,7 +49,8 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
 
         View ItemView = inflater
                 .inflate(R.layout.grocery_recyclerview_layout,
-                        parent);
+                        parent,
+                        false);
 
         ViewHolder theView = new ViewHolder(ItemView);
 

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity {
@@ -21,9 +23,15 @@ public class FridgeActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.viewGroceryList);
 
-        List<Item> theList = theFridge.get_Items();
+        // Test Code
+        Date nowDate = new Date();
+        List<Item> testList = new ArrayList<Item>();
+        testList.add(new Item("TestName1", "TestType1", nowDate, nowDate ));
+        testList.add(new Item("TestName2", "TestType2", nowDate, nowDate ));
+        testList.add(new Item("TestName3", "TestType3", nowDate, nowDate ));
 
-        adapter = new FridgeAdapter(theList, getApplication());
+        adapter = new FridgeAdapter(testList, getApplication());
+        //adapter = new FridgeAdapter(theFridge.get_Items(), getApplication());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(FridgeActivity.this));
     }
