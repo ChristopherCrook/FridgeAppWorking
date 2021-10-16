@@ -47,6 +47,8 @@ public class Item {
 
     public Date Get_Expiration() { return expires; }
 
+    public void Set_ID(int id_m) { id = id_m; }
+
     public void Set_Name(String name_m)
     {
         name = name_m;

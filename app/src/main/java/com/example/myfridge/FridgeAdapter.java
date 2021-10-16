@@ -13,6 +13,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+// This is our Adapter class for handling Refrigerator Items in a RecyclerView
 public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

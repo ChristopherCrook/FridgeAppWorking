@@ -31,6 +31,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         List<String> groceries = new ArrayList<String>();
 
         // Get the list of grocery types for the typeSpinner
+        // This works
         for (GroceryItem item : MainActivity.theGroceryTypes)
         {
             groceries.add(item.GetType());
@@ -88,7 +89,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
 
                 // Add new Item
                 Item newItem = new Item(itemName, selected_type, dateObject, expiration);
-                MainActivity.theFridge.AddItem(newItem);
+                MainActivity.theFridge.AddItem(newItem, AddGroceryActivity.this);
 
                 // Return to MainActivity
                 finish();

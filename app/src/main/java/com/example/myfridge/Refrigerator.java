@@ -1,17 +1,19 @@
 package com.example.myfridge;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
+// This is the class that holds our Refrigerator Items that are store in a
+// database
 public class Refrigerator {
     private List<Item> items;
     private int length;
 
-    private RefrigeratorHandler handler;
-
-    public Refrigerator(RefrigeratorHandler extern_handler)
+    public Refrigerator(Context context)
     {
-        handler = extern_handler;
+        RefrigeratorHandler handler = new RefrigeratorHandler(context);
 
         length = handler.getItemsCount();
 
@@ -29,17 +31,19 @@ public class Refrigerator {
         return items;
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, Context context)
     {
+        RefrigeratorHandler handler = new RefrigeratorHandler(context);
         handler.Add_Item(item);
 
-        items.clear();
-        items = handler.getAllContacts(); // This is so we get an ID
-                                          // for the new item
+        // This is not an elegant solution, but it guarantees an ID number
+        items.add(item);
+        length = handler.getItemsCount();
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item item, Context context)
     {
+        RefrigeratorHandler handler = new RefrigeratorHandler(context);
         for (Item current : items)
         {
             if (current.Get_ID() == item.Get_ID())
@@ -50,8 +54,9 @@ public class Refrigerator {
         }
     }
 
-    public int UpdateItem(Item item)
+    public int UpdateItem(Item item, Context context)
     {
+        RefrigeratorHandler handler = new RefrigeratorHandler(context);
         int index = -1;
         for (Item current : items)
         {
@@ -68,4 +73,5 @@ public class Refrigerator {
         handler.updateItem(item);
         return 0;
     }
+
 }

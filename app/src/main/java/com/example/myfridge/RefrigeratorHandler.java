@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// This class handles our Refrigerator database
 public class RefrigeratorHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Refrigerator";
+    private static final String DATABASE_NAME = "Refrigerator.db";
     private static final String TABLE_CONTENTS = "RefrigeratorContents";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -28,9 +29,10 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTENTS + "("
-                + KEY_ID + "INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_TYPE + " TEXT,"
-                + KEY_PURCHASED + " TEXT," + KEY_EXPIRES + " TEXT" + ")";
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTENTS + " ("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME +
+                " TEXT NOT NULL, " + KEY_TYPE + " TEXT NOT NULL, " + KEY_PURCHASED +
+                " TEXT NOT NULL, " + KEY_EXPIRES + " TEXT NOT NULL);";
         sqLiteDatabase.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -52,17 +54,25 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, item.Get_Name());
         values.put(KEY_TYPE, item.Get_Type());
-        values.put(KEY_PURCHASED, purchased.toString());
-        values.put(KEY_EXPIRES, expires.toString());
+        values.put(KEY_PURCHASED, String.valueOf(purchased.getTime()));
+        values.put(KEY_EXPIRES, String.valueOf(expires.getTime()));
 
         db.beginTransaction();
 
         // Inserting Row
-        db.insert(TABLE_CONTENTS, null, values);
+        long id = db.insert(TABLE_CONTENTS, null, values);
         //2nd argument is String containing nullColumnHack
-        //db.close(); // Closing database connection
+        if (id < 0)
+            System.out.println("Error adding to database " + DATABASE_NAME);
+
+        db.setTransactionSuccessful();
 
         db.endTransaction();
+        if (id < Integer.MAX_VALUE) {
+            item.Set_ID((int)id);
+        }
+
+        db.close(); // Closing database connection
     }
 
     Item Get_Item(int id) {
@@ -74,8 +84,10 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Date entry_date = new Date(cursor.getString(3));
-        Date entry_expire = new Date(cursor.getString(4));
+        Long entry_d_long = Long.valueOf(cursor.getString(3)).longValue();
+        Long entry_e_long = Long.valueOf(cursor.getString(4)).longValue();
+        Date entry_date = new Date(entry_d_long);
+        Date entry_expire = new Date(entry_e_long);
 
         Item item = new Item(
                 Integer.parseInt(cursor.getString(0)),
@@ -89,8 +101,13 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
 
     public List<Item> getAllContacts() {
         List<Item> contactList = new ArrayList<Item>();
+
+        // Check and see if there are contents first
+        if (this.getItemsCount() == 0)
+            return contactList;
+
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTENTS;
+        String selectQuery = "SELECT * FROM " + TABLE_CONTENTS;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -98,11 +115,15 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                int id = Integer.parseInt(cursor.getString(0));
+                int id;
+                id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
                 String type = cursor.getString(2);
-                Date date = new Date(cursor.getString(3));
-                Date expires = new Date(cursor.getString(4));
+                Long entry_d_long = Long.valueOf(cursor.getString(3)).longValue();
+                Long entry_e_long = Long.valueOf(cursor.getString(4)).longValue();
+
+                Date date = new Date(entry_d_long);
+                Date expires = new Date(entry_e_long);
 
                 Item item = new Item(id, name, type, date, expires);
 
@@ -111,6 +132,7 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        db.close(); // Closing database connection
         // return contact list
         return contactList;
     }
@@ -119,11 +141,14 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
     public int updateItem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Date purchased = item.Get_Date();
+        Date expires = item.Get_Expiration();
+
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, item.Get_Name());
         values.put(KEY_TYPE, item.Get_Type());
-        values.put(KEY_PURCHASED, item.Get_Date().toString());
-        values.put(KEY_EXPIRES, item.Get_Expiration().toString());
+        values.put(KEY_PURCHASED, String.valueOf(purchased.getTime()));
+        values.put(KEY_EXPIRES, String.valueOf(expires.getTime()));;
 
         // updating row
         return db.update(TABLE_CONTENTS, values, KEY_ID + " = ?",
@@ -141,11 +166,17 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
 
     // Getting contacts Count
     public int getItemsCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_CONTENTS;
+        String countQuery = "SELECT * FROM " + TABLE_CONTENTS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
         // return count
         return cursor.getCount();
+    }
+
+    // Close the database
+    public void Close() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.close();
     }
 }
