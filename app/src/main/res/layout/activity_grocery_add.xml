@@ -10,11 +10,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="128dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Item Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="145dp"
         android:layout_marginEnd="128dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,21 +37,56 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Add Grocery"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="0dp"
+    <CalendarView
+        android:id="@+id/PurchasedCalendarView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="128dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="DD/MM/YYYY"
+        android:layout_marginTop="225dp"
+        app:layout_constraintBottom_toTopOf="@+id/addGroceryItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textInputName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
+        android:text="Enter the name of the Grocery Item"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEnterType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="118dp"
+        android:layout_marginEnd="128dp"
+        android:text="Select the Grocery Type"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEnterDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select the Purchase Date"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/PurchasedCalendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

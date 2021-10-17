@@ -1,6 +1,8 @@
 package com.example.myfridge;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,6 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // On-click listener
-            // XXX To-Do
 
             nameView = (TextView) itemView.findViewById(R.id.groceryName);
             dateView = (TextView) itemView.findViewById(R.id.groceryDate);
@@ -63,6 +62,19 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
         final int index = holder.getAdapterPosition();
         holder.nameView.setText(fridgeItems.get(position).Get_Name());
         holder.dateView.setText(fridgeItems.get(position).Get_Date().toString());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                intent = new Intent(view.getContext(), ViewItemActivity.class);
+                intent.putExtra(
+                        "Item_ID",
+                        fridgeItems.get(position).Get_ID()
+                );
+                context_t.startActivity(intent);
+            }
+        });
     }
 
     @Override

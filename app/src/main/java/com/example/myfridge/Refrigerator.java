@@ -74,4 +74,17 @@ public class Refrigerator {
         return 0;
     }
 
+    public Item GetItem(int id)
+    {
+        for (Item current : items)
+        {
+            if (current.Get_ID() == id)
+            {
+                return current;
+            }
+        }
+
+        return null;
+    }
+
 }

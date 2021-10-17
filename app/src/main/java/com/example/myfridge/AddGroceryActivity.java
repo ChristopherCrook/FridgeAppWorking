@@ -4,9 +4,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DateFormat;
@@ -19,11 +21,14 @@ import java.util.List;
 public class AddGroceryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private String selected_type;
+    private Long   current_date;
+    private CalendarView calendar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_add);
 
+        // Create the Spinner variable for the grocery item types
         Spinner typeSpinner = (Spinner) findViewById(R.id.spinnerGroceryType);
 
         typeSpinner.setOnItemSelectedListener(this);
@@ -46,6 +51,16 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         typeSinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(typeSinnerAdapter);
 
+        // Set the CalendarView variable
+        calendar = findViewById(R.id.PurchasedCalendarView);
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                current_date = calendarView.getDate();
+            }
+        });
+
+        // Set up the ADD GROCERY button specifics
         Button addButton = null;
         addButton = findViewById(R.id.addGroceryItemButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -58,20 +73,6 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
                 EditText itemText = (EditText) findViewById(R.id.inputGroceryName);
                 String itemName = itemText.getText().toString();
 
-                // Get the Item date
-                EditText dateText = (EditText) findViewById(R.id.editTextDate);
-                String itemDate = dateText.getText().toString();
-
-                Date dateObject;
-
-                // Try and retrieve the date. If unsuccessful, assign today's date
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
-                try {
-                    dateObject = formatter.parse(itemDate);
-                } catch (ParseException e) {
-                    dateObject = new Date();
-                }
-
                 // Find the Grocery Type
                 for (GroceryItem item : MainActivity.theGroceryTypes)
                 {
@@ -81,14 +82,20 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
                     }
                 }
 
+                // Handle the date fields
+                Date bought;
+                Date expiration;
+
+                bought = new Date(current_date);
+
                 // Calculate expiration Date
                 ms_time = ms_time * expire_days;
-                ms_time = ms_time + dateObject.getTime();
+                ms_time = ms_time + bought.getTime();
 
-                Date expiration = new Date(ms_time);
+                expiration = new Date(ms_time);
 
                 // Add new Item
-                Item newItem = new Item(itemName, selected_type, dateObject, expiration);
+                Item newItem = new Item(itemName, selected_type, bought, expiration);
                 MainActivity.theFridge.AddItem(newItem, AddGroceryActivity.this);
 
                 // Return to MainActivity
