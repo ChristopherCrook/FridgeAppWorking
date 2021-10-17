@@ -6,10 +6,11 @@
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity__item_view.xml" value="0.264" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_add_alarm.xml" value="0.264" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_grocery_add.xml" value="0.264" />
+        <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_item_view.xml" value="0.176" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_view_fridge.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/grocery_list_viewer.xml" value="0.17708333333333334" />
-        <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/grocery_recyclerview_layout.xml" value="0.4" />
+        <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/grocery_recyclerview_layout.xml" value="0.264" />
       </map>
     </option>
   </component>

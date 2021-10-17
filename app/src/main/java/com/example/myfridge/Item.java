@@ -1,7 +1,5 @@
 package com.example.myfridge;
 
-import androidx.annotation.NonNull;
-
 import java.util.Date;
 
 public class Item {

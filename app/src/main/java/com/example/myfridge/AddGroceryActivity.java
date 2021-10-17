@@ -11,9 +11,6 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,11 +26,11 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_grocery_add);
 
         // Create the Spinner variable for the grocery item types
-        Spinner typeSpinner = (Spinner) findViewById(R.id.spinnerGroceryType);
+        Spinner typeSpinner = findViewById(R.id.spinnerGroceryType);
 
         typeSpinner.setOnItemSelectedListener(this);
 
-        List<String> groceries = new ArrayList<String>();
+        List<String> groceries = new ArrayList<>();
 
         // Get the list of grocery types for the typeSpinner
         // This works
@@ -42,8 +39,8 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
             groceries.add(item.GetType());
         }
 
-        ArrayAdapter<String> typeSinnerAdapter = new ArrayAdapter<String>(
-        this,
+        ArrayAdapter<String> typeSinnerAdapter = new ArrayAdapter<>(
+                this,
                 android.R.layout.simple_spinner_item,
                 groceries
         );
@@ -53,6 +50,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
 
         // Set the CalendarView variable
         calendar = findViewById(R.id.PurchasedCalendarView);
+        current_date = calendar.getDate();
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -61,7 +59,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         });
 
         // Set up the ADD GROCERY button specifics
-        Button addButton = null;
+        Button addButton;
         addButton = findViewById(R.id.addGroceryItemButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +68,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
                 long ms_time = 86400000;
 
                 // Get the Item Name
-                EditText itemText = (EditText) findViewById(R.id.inputGroceryName);
+                EditText itemText = findViewById(R.id.inputGroceryName);
                 String itemName = itemText.getText().toString();
 
                 // Find the Grocery Type

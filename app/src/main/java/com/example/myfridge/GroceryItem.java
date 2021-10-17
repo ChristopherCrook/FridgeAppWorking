@@ -1,7 +1,5 @@
 package com.example.myfridge;
 
-import java.util.Date;
-
 public final class GroceryItem {
 
     private String type;
@@ -9,7 +7,7 @@ public final class GroceryItem {
 
     public GroceryItem(String type_m, int days_m)
     {
-      type = new String(type_m);
+      type = type_m;
       days = days_m;
     }
 

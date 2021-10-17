@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,8 +82,20 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Long entry_d_long = Long.valueOf(cursor.getString(3)).longValue();
-        Long entry_e_long = Long.valueOf(cursor.getString(4)).longValue();
+        Long entry_d_long;
+        Long entry_e_long;
+
+        if (cursor.getString(3) != null)
+            entry_d_long = Long.valueOf(cursor.getString(3));
+        else
+            entry_d_long = new Date().getTime();
+
+
+        if (cursor.getString(4) != null)
+            entry_e_long = Long.valueOf(cursor.getString(4));
+        else
+            entry_e_long = new Date().getTime();
+
         Date entry_date = new Date(entry_d_long);
         Date entry_expire = new Date(entry_e_long);
 
@@ -96,11 +106,13 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
                 entry_date,
                 entry_expire
         );
+
+        cursor.close();
         return item;
     }
 
     public List<Item> getAllContacts() {
-        List<Item> contactList = new ArrayList<Item>();
+        List<Item> contactList = new ArrayList<>();
 
         // Check and see if there are contents first
         if (this.getItemsCount() == 0)
@@ -119,8 +131,8 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
                 id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
                 String type = cursor.getString(2);
-                Long entry_d_long = Long.valueOf(cursor.getString(3)).longValue();
-                Long entry_e_long = Long.valueOf(cursor.getString(4)).longValue();
+                Long entry_d_long = Long.valueOf(cursor.getString(3));
+                Long entry_e_long = Long.valueOf(cursor.getString(4));
 
                 Date date = new Date(entry_d_long);
                 Date expires = new Date(entry_e_long);
@@ -133,6 +145,7 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         }
 
         db.close(); // Closing database connection
+        cursor.close();
         // return contact list
         return contactList;
     }
@@ -148,7 +161,7 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, item.Get_Name());
         values.put(KEY_TYPE, item.Get_Type());
         values.put(KEY_PURCHASED, String.valueOf(purchased.getTime()));
-        values.put(KEY_EXPIRES, String.valueOf(expires.getTime()));;
+        values.put(KEY_EXPIRES, String.valueOf(expires.getTime()));
 
         // updating row
         return db.update(TABLE_CONTENTS, values, KEY_ID + " = ?",
@@ -161,6 +174,7 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         db.beginTransaction();
         db.delete(TABLE_CONTENTS, KEY_ID + " = ?",
                 new String[] { String.valueOf(name.Get_ID()) });
+        db.setTransactionSuccessful();
         db.endTransaction();
     }
 
@@ -170,8 +184,11 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
+        int count = cursor.getCount();
+        cursor.close();
+
         // return count
-        return cursor.getCount();
+        return count;
     }
 
     // Close the database

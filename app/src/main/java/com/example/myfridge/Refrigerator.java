@@ -19,7 +19,7 @@ public class Refrigerator {
 
         if (length < 1) // Database is empty
         {
-            items = new ArrayList<Item>();
+            items = new ArrayList<>();
             return;
         }
 
@@ -48,6 +48,7 @@ public class Refrigerator {
         {
             if (current.Get_ID() == item.Get_ID())
             {
+                System.out.println("I found it");
                 items.remove(current);
                 handler.deleteItem(item);
             }

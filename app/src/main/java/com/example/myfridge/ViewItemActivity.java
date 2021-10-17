@@ -6,13 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 public class ViewItemActivity extends AppCompatActivity {
     @Override
@@ -28,6 +24,11 @@ public class ViewItemActivity extends AppCompatActivity {
 
         Item current = MainActivity.theFridge.GetItem(id);
 
+        String name = current.Get_Name();
+        String type = current.Get_Type();
+        String date = current.Get_Date().toString();
+        String expire = current.Get_Expiration().toString();
+
         TextView showName;
         TextView showType;
         TextView showDate;
@@ -38,17 +39,17 @@ public class ViewItemActivity extends AppCompatActivity {
         showDate = findViewById(R.id.boughtOnViewField);
         showExpire = findViewById(R.id.expiresOnViewField);
 
-        showName.setText(current.Get_Name());
-        showType.setText(current.Get_Type());
-        showDate.setText(current.Get_Date().toString());
-        showExpire.setText(current.Get_Expiration().toString());
+        showName.setText(name);
+        showType.setText(type);
+        showDate.setText(date);
+        showExpire.setText(expire);
 
-        FloatingActionButton deleteButton;
-        deleteButton = findViewById(R.id.DeleteItemButton);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton alarmButton;
+        alarmButton = findViewById(R.id.addAlarmItemViewButton);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                
             }
         });
     }

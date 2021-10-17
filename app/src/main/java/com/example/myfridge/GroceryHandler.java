@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class GroceryHandler extends SQLiteOpenHelper {
 
     public GroceryHandler(Context context) {
         super(context, "temp", null, 1);
-        list_m = new ArrayList<GroceryItem>();
+        list_m = new ArrayList<>();
     }
 
     @Override
@@ -48,7 +46,4 @@ public class GroceryHandler extends SQLiteOpenHelper {
         return list_m;
     }
 
-    public int getGroceryTypeCount() {
-        return list_m.size();
-    }
 }
