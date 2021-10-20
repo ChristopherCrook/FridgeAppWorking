@@ -18,7 +18,6 @@ import java.util.List;
 public class AddGroceryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private String selected_type;
-    private Long   current_date;
     private CalendarView calendar;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +49,6 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
 
         // Set the CalendarView variable
         calendar = findViewById(R.id.PurchasedCalendarView);
-        current_date = calendar.getDate();
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                current_date = calendarView.getDate();
-            }
-        });
 
         // Set up the ADD GROCERY button specifics
         Button addButton;
@@ -84,7 +76,7 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
                 Date bought;
                 Date expiration;
 
-                bought = new Date(current_date);
+                bought = new Date(calendar.getDate());
 
                 // Calculate expiration Date
                 ms_time = ms_time * expire_days;
