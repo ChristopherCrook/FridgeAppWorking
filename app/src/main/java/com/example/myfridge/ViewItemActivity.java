@@ -49,7 +49,12 @@ public class ViewItemActivity extends AppCompatActivity {
         alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent intent;
+                intent = new Intent(view.getContext(), AddAlarmActivity.class);
+                intent.putExtra("Name", name);
+                intent.putExtra("Expiration", current.Get_Expiration().getTime());
+                intent.putExtra("ID", current.Get_ID());
+                startActivity(intent);
             }
         });
     }

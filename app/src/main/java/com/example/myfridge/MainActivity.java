@@ -47,17 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set up our Add Alarm button
-        FloatingActionButton addAlarmButton;
-        addAlarmButton = findViewById(R.id.addAlarmButton);
-        addAlarmButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(), AddAlarmActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // Set up our button that takes us to the Fridge
         Button fridgeGoToButton;
         fridgeGoToButton = findViewById(R.id.fridgeButton);
