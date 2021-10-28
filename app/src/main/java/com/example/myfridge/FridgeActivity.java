@@ -4,6 +4,7 @@ import static com.example.myfridge.MainActivity.theFridge;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,11 @@ public class FridgeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_fridge);
 
         List<Item> FridgeItems = theFridge.get_Items();
+
+        TextView emptyMessage = findViewById(R.id.EmptyTextView);
+
+        if (!FridgeItems.isEmpty())
+            emptyMessage.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.viewGroceryList);
 
@@ -71,18 +77,15 @@ public class FridgeActivity extends AppCompatActivity {
                 Snackbar.make(
                         recyclerView,
                         deletedCourse.Get_Name(),
-                        Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // adding on click listener to our action of snack bar.
-                        // below line is to add our item to array list with a position.
-                        theFridge.AddItem(deletedCourse, getApplicationContext());
+                        Snackbar.LENGTH_LONG).setAction("Undo", v -> {
+                            // adding on click listener to our action of snack bar.
+                            // below line is to add our item to array list with a position.
+                            theFridge.AddItem(deletedCourse, getApplicationContext());
 
-                        // below line is to notify item is
-                        // added to our adapter class.
-                        adapter.notifyItemInserted(position);
-                    }
-                }).show();
+                            // below line is to notify item is
+                            // added to our adapter class.
+                            adapter.notifyItemInserted(position);
+                        }).show();
             }
             // at last we are adding this
             // to our recycler view.

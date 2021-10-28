@@ -2,11 +2,9 @@ package com.example.myfridge;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,43 +34,22 @@ public class MainActivity extends AppCompatActivity {
         // Create the Refrigerator to hold the users items
         theFridge = new Refrigerator(MainActivity.this);
 
-        // Set up our Add Grocery Button
+        // Set up our Add-Grocery Button
         FloatingActionButton addGroceryButton;
         addGroceryButton = findViewById(R.id.addGroceryButton);
-        addGroceryButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(), AddGroceryActivity.class);
-                startActivity(intent);
-            }
+        addGroceryButton.setOnClickListener(view -> {
+            Intent intent;
+            intent = new Intent(view.getContext(), AddGroceryActivity.class);
+            startActivity(intent);
         });
 
         // Set up our button that takes us to the Fridge
         Button fridgeGoToButton;
         fridgeGoToButton = findViewById(R.id.fridgeButton);
-        fridgeGoToButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(), FridgeActivity.class);
-                startActivity(intent);
-            }
+        fridgeGoToButton.setOnClickListener(view -> {
+            Intent intent;
+            intent = new Intent(view.getContext(), FridgeActivity.class);
+            startActivity(intent);
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
     }
 }

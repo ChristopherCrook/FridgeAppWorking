@@ -1,7 +1,7 @@
 package com.example.myfridge;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,72 +11,83 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
-    private NotificationManager Manager_N;
     private NotificationChannel Channel;
-    private Context context;
-    private Boolean isSet;
-    private String ChannelID = "FridgeAlarmID";
-    private String ChannelName = "Fridge Alarms";
+
+    private final String ChannelID = "FridgeAlarmID";
 
     public NotificationReceiver() {
-        isSet = Boolean.FALSE;
-    }
 
-    public void Set(Context context) {
-        this.context = context;
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        int importance = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            importance = NotificationManager.IMPORTANCE_DEFAULT;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelName = "Fridge Alarms";
             Channel = new NotificationChannel(
                     ChannelID,
-                    ChannelName,
+                    channelName,
                     importance
             );
-        }
 
-        Manager_N = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Manager_N.createNotificationChannel(Channel);
-            isSet = Boolean.TRUE;
         }
     }
 
-    public void CreateNotification(String title, String text, Long time, int id) {
-        if (isSet == Boolean.FALSE)
-        {
-            System.out.println("Channel Not Set");
-            return;
-        }
-
-        Intent intent = new Intent(this.context, MainActivity.class);
-
+    public void ScheduleNotification(Context context, String title, String text, Long time, int id) {
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, NotificationReceiver.class);
         intent.putExtra("title", title);
         intent.putExtra("text", text);
         intent.putExtra("ID", id);
-        PendingIntent pending = PendingIntent.getBroadcast(
+
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent alarmIntent = PendingIntent.getBroadcast(
                 context,
-                id,
+                0,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                0
         );
-        // Schdedule notification
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending);
-        }
+
+        alarmMgr.set(
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                time,
+                alarmIntent
+        );
     }
     @Override
     public void onReceive(Context context, Intent intent) {
-        // Build notification based on Intent
-        Notification notification = new NotificationCompat.Builder(context, ChannelID)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NotificationManager manager_N = context.getSystemService(NotificationManager.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                manager_N.createNotificationChannel(Channel);
+            }
+            else {
+                System.out.println("Error: Build.VERSION.SDK_INT >= Build.VERSION_CODES.O Failed");
+                return;
+            }
+        }
+        else {
+            System.out.println("Error: Build.VERSION.SDK_INT >= Build.VERSION_CODES.M Failed");
+            return;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                context,
+                ChannelID
+        )
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(intent.getStringExtra("title"))
                 .setContentText(intent.getStringExtra("text"))
-                .build();
-        // Show notification
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(intent.getIntExtra("ID", 42), notification);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notifier = NotificationManagerCompat.from(context);
+        notifier.notify(
+                intent.getIntExtra("ID", 42),
+                builder.build()
+        );
     }
 }
