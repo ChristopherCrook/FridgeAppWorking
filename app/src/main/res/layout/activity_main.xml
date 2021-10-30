@@ -25,23 +25,24 @@
         android:id="@+id/addGroceryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="656dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/addGroceryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="672dp"
+        android:layout_marginEnd="8dp"
         android:text="Add Grocery Item"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/addGroceryButton"
+        app:layout_constraintEnd_toStartOf="@+id/addGroceryButton"
+        app:layout_constraintTop_toTopOf="@+id/addGroceryButton" />
 
     <ImageView
         android:id="@+id/imageView"

@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class ItemTest {
     @Test
-    void ExecuteTest()
+    public void ExecuteTest()
     {
-        Date bought = new Date(2021, 06, 04);
-        Date expires = new Date(2021, 06, 10);
+        Date bought = new Date();
+        Date expires = new Date(bought.getTime() + 1000);
         Item item = new Item(
                 1,
                 "Test Item",
@@ -24,12 +24,15 @@ public class ItemTest {
         assertEquals("Testing Name", "Test Item", item.Get_Name());
         assertEquals("Testing Type", "Test Type", item.Get_Type());
 
-        String bought_string = bought.toString();
-        String expire_string = expires.toString();
-
-        assertEquals("Testing Date", bought_string, item.Get_Date());
-        assertEquals("Testing Expiration", expire_string, item.Get_Expiration());
-
-
+        assertEquals(
+                "Testing Date",
+                bought.getTime(),
+                item.Get_Date().getTime()
+        );
+        assertEquals(
+                "Testing Expiration",
+                expires.getTime(),
+                item.Get_Expiration().getTime()
+        );
     }
 }

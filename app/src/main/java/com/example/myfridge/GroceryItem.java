@@ -11,6 +11,12 @@ public final class GroceryItem {
       days = days_m;
     }
 
+    public void Set(String type_m, int days_m)
+    {
+      type = type_m;
+      days = days_m;
+    }
+
     public String GetType() { return type; }
 
     public int GetDays()
