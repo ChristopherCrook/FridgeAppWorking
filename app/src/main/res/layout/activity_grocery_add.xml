@@ -10,24 +10,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/item_name"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputName" />
 
     <Spinner
         android:id="@+id/spinnerGroceryType"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="145dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textEnterType"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/addGroceryItemButton"
@@ -36,7 +38,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Add Grocery"
+        android:text="@string/add_grocery"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,20 +48,20 @@
         android:id="@+id/PurchasedCalendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="225dp"
         app:layout_constraintBottom_toTopOf="@+id/addGroceryItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGroceryType" />
 
     <TextView
         android:id="@+id/textInputName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="100dp"
-        android:text="Enter the name of the Grocery Item"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/text_instruction_for_the_user_on_what_to_enter_in_the_field_below"
+        android:text="@string/enter_the_name_of_the_grocery_item"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,19 +72,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="118dp"
-        android:layout_marginEnd="128dp"
-        android:text="Select the Grocery Type"
+        android:layout_marginEnd="8dp"
+        android:text="@string/select_the_grocery_type"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/inputGroceryName" />
 
     <TextView
         android:id="@+id/textEnterDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select the Purchase Date"
+        android:text="@string/select_the_purchase_date"
         android:textAlignment="textStart"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/PurchasedCalendarView"

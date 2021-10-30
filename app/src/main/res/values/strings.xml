@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">MyFridge</string>
+    <string name="text_instruction_for_the_user_on_what_to_enter_in_the_field_below">text instruction for the user on what to enter in the field below</string>
+    <string name="add_grocery">Add Grocery</string>
+    <string name="select_the_grocery_type">Select the Grocery Type</string>
+    <string name="select_the_purchase_date">Select the Purchase Date</string>
+    <string name="enter_the_name_of_the_grocery_item">Enter the name of the Grocery Item</string>
+    <string name="item_name">Item name</string>
+    <string name="test">test</string>
+    <string name="bought_on">Bought on:</string>
+    <string name="expires_on">Expires on:</string>
+    <string name="button_to_add_an_alarm_for_the_grocery_item">Button to add an alarm for the grocery item</string>
+    <string name="open">Open</string>
+    <string name="add_grocery_item">Add Grocery Item</string>
+    <string name="button_to_add_grocery_item">Button to Add Grocery Item</string>
+    <string name="background_image">background image</string>
+    <string name="clock_image">clock image</string>
+    <string name="fridge_is_empty_n_add_groceries_from_home_screen">Fridge is Empty\n Add groceries from home screen</string>
+    <string name="add_alarm">Add Alarm</string>
+    <string name="select_a_time">Select a Time</string>
+    <string name="textview">TextView</string>
+    <string name="add_a_note_to_your_alarm">Add a note to your alarm</string>
+    <string name="set_the_date_and_time_for_your_alarm">Set the date and time for your alarm</string>
+    <string name="note_relating_to_the_alarm">Note relating to the Alarm</string>
 </resources>

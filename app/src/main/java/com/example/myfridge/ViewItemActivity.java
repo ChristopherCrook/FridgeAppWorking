@@ -2,7 +2,6 @@ package com.example.myfridge;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -46,16 +45,13 @@ public class ViewItemActivity extends AppCompatActivity {
 
         FloatingActionButton alarmButton;
         alarmButton = findViewById(R.id.addAlarmItemViewButton);
-        alarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(), AddAlarmActivity.class);
-                intent.putExtra("Name", name);
-                intent.putExtra("Expiration", current.Get_Expiration().getTime());
-                intent.putExtra("ID", current.Get_ID());
-                startActivity(intent);
-            }
+        alarmButton.setOnClickListener(view -> {
+            Intent intent1;
+            intent1 = new Intent(view.getContext(), AddAlarmActivity.class);
+            intent1.putExtra("Name", name);
+            intent1.putExtra("Expiration", current.Get_Expiration().getTime());
+            intent1.putExtra("ID", current.Get_ID());
+            startActivity(intent1);
         });
     }
 }

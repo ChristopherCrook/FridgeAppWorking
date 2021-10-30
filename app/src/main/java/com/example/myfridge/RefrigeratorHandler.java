@@ -82,17 +82,18 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Long entry_d_long;
-        Long entry_e_long;
+        long entry_d_long;
+        long entry_e_long;
 
+        assert cursor != null;
         if (cursor.getString(3) != null)
-            entry_d_long = Long.valueOf(cursor.getString(3));
+            entry_d_long = Long.parseLong(cursor.getString(3));
         else
             entry_d_long = new Date().getTime();
 
 
         if (cursor.getString(4) != null)
-            entry_e_long = Long.valueOf(cursor.getString(4));
+            entry_e_long = Long.parseLong(cursor.getString(4));
         else
             entry_e_long = new Date().getTime();
 
@@ -131,8 +132,8 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
                 id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
                 String type = cursor.getString(2);
-                Long entry_d_long = Long.valueOf(cursor.getString(3));
-                Long entry_e_long = Long.valueOf(cursor.getString(4));
+                long entry_d_long = Long.parseLong(cursor.getString(3));
+                long entry_e_long = Long.parseLong(cursor.getString(4));
 
                 Date date = new Date(entry_d_long);
                 Date expires = new Date(entry_e_long);
@@ -151,7 +152,7 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
     }
 
     // code to update the single contact
-    public int updateItem(Item item) {
+    public void updateItem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Date purchased = item.Get_Date();
@@ -164,8 +165,8 @@ public class RefrigeratorHandler extends SQLiteOpenHelper {
         values.put(KEY_EXPIRES, String.valueOf(expires.getTime()));
 
         // updating row
-        return db.update(TABLE_CONTENTS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(item.Get_ID()) });
+        db.update(TABLE_CONTENTS, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(item.Get_ID())});
     }
 
     // Deleting single contact

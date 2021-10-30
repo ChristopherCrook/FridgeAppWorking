@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:text="test"
+        android:text="@string/test"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
-        android:text="test"
+        android:text="@string/test"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:text="Bought on:"
+        android:text="@string/bought_on"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="110dp"
-        android:text="Expires on:"
+        android:text="@string/expires_on"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:text="test"
+        android:text="@string/test"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/boughOnView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Add Alarm"
+        android:text="@string/add_alarm"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/addAlarmItemViewButton"
         app:layout_constraintStart_toEndOf="@+id/addAlarmItemViewButton"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="110dp"
-        android:text="test"
+        android:text="@string/test"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/boughOnView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -89,9 +89,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
+        android:contentDescription="@string/button_to_add_an_alarm_for_the_grocery_item"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,RedundantDescriptionCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

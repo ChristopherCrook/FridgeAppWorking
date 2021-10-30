@@ -8,7 +8,6 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -53,44 +52,41 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         // Set up the ADD GROCERY button specifics
         Button addButton;
         addButton = findViewById(R.id.addGroceryItemButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int expire_days = 0;
-                long ms_time = 86400000;
+        addButton.setOnClickListener(view -> {
+            int expire_days = 0;
+            long ms_time = 86400000;
 
-                // Get the Item Name
-                EditText itemText = findViewById(R.id.inputGroceryName);
-                String itemName = itemText.getText().toString();
+            // Get the Item Name
+            EditText itemText = findViewById(R.id.inputGroceryName);
+            String itemName = itemText.getText().toString();
 
-                // Find the Grocery Type
-                for (GroceryItem item : MainActivity.theGroceryTypes)
+            // Find the Grocery Type
+            for (GroceryItem item : MainActivity.theGroceryTypes)
+            {
+                if (item.GetType().equals(selected_type))
                 {
-                    if (item.GetType().equals(selected_type))
-                    {
-                        expire_days = item.GetDays();
-                    }
+                    expire_days = item.GetDays();
                 }
-
-                // Handle the date fields
-                Date bought;
-                Date expiration;
-
-                bought = new Date(calendar.getDate());
-
-                // Calculate expiration Date
-                ms_time = ms_time * expire_days;
-                ms_time = ms_time + bought.getTime();
-
-                expiration = new Date(ms_time);
-
-                // Add new Item
-                Item newItem = new Item(itemName, selected_type, bought, expiration);
-                MainActivity.theFridge.AddItem(newItem, AddGroceryActivity.this);
-
-                // Return to MainActivity
-                finish();
             }
+
+            // Handle the date fields
+            Date bought;
+            Date expiration;
+
+            bought = new Date(calendar.getDate());
+
+            // Calculate expiration Date
+            ms_time = ms_time * expire_days;
+            ms_time = ms_time + bought.getTime();
+
+            expiration = new Date(ms_time);
+
+            // Add new Item
+            Item newItem = new Item(itemName, selected_type, bought, expiration);
+            MainActivity.theFridge.AddItem(newItem, AddGroceryActivity.this);
+
+            // Return to MainActivity
+            finish();
         });
     }
 

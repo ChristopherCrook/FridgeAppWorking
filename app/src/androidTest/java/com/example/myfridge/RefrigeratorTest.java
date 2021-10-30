@@ -1,6 +1,7 @@
 package com.example.myfridge;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import android.content.Context;
 
@@ -53,7 +54,7 @@ public class RefrigeratorTest {
             // Test RemoveItem
             testFridge.RemoveItem(item, appContext);
             Item nullptr = testFridge.GetItem(item.Get_ID());
-            assertEquals(nullptr, null);
+            assertNull(nullptr);
 
             // Test AddItem
             testFridge.AddItem(item, appContext);
@@ -69,7 +70,7 @@ public class RefrigeratorTest {
         Item i2 = new Item("Test2", "Test2Type", s, e);
 
         theList.add(i1);
-        theList.add((i2);
+        theList.add(i2);
 
         return theList;
     }

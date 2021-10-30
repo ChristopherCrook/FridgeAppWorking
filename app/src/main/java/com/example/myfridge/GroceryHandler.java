@@ -5,11 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GroceryHandler extends SQLiteOpenHelper {
 
-    private List <GroceryItem> list_m;
+    private final List <GroceryItem> list_m;
 
     public GroceryHandler(Context context) {
         super(context, "temp", null, 1);
@@ -32,7 +33,7 @@ public class GroceryHandler extends SQLiteOpenHelper {
     }
 
     public void LoadDefaults() {
-        GroceryItem items[] = new GroceryItem[45];
+        GroceryItem[] items = new GroceryItem[45];
         items[0] = new GroceryItem("Fresh Eggs", 21);
         items[1] = new GroceryItem("Raw Yolks, White", 2);
         items[2] = new GroceryItem("Hard Boiled Eggs", 7);
@@ -79,8 +80,7 @@ public class GroceryHandler extends SQLiteOpenHelper {
         items[43] = new GroceryItem("Leafy Greens", 7);
         items[44] = new GroceryItem("Cooked Leftovers, General", 3);
 
-        for (GroceryItem item : items)
-            list_m.add(item);
+        Collections.addAll(list_m, items);
     }
 
 }

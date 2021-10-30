@@ -8,7 +8,7 @@ import java.util.List;
 // This is the class that holds our Refrigerator Items that are store in a
 // database
 public class Refrigerator {
-    private List<Item> items;
+    private final List<Item> items;
     private int length;
 
     public Refrigerator(Context context)

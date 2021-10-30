@@ -1,9 +1,7 @@
 package com.example.myfridge;
 
 import android.Manifest;
-import android.app.AlarmManager;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -16,7 +14,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -70,25 +67,21 @@ public class AddAlarmActivity extends AppCompatActivity {
 
     // Method to formally request a permission from the user
     private void requestAlarmPermission() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM},
-                1
-        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM},
+                    1
+            );
+        }
     }
 
 
-    private void showExplanation(String title,
-                                 String message
-    ) {
+    private void showExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        requestAlarmPermission();
-                    }
-                });
+        builder.setTitle("Permission Needed")
+                .setMessage("Rationale")
+                .setPositiveButton(android.R.string.ok, (dialog, id) -> requestAlarmPermission());
         builder.create().show();
     }
 
@@ -100,7 +93,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                 Manifest.permission.SCHEDULE_EXACT_ALARM
         ))
         {
-            showExplanation("Permission Needed", "Rationale");
+            showExplanation();
         }
         else
             requestAlarmPermission();

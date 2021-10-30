@@ -35,8 +35,8 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
         }
     }
 
-    private List<Item> fridgeItems;
-    private Context context_t;
+    private final List<Item> fridgeItems;
+    private final Context context_t;
 
     public FridgeAdapter(List<Item> items_list, Context context_m){
 
@@ -55,9 +55,7 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
                         parent,
                         false);
 
-        ViewHolder theView = new ViewHolder(ItemView);
-
-        return theView;
+        return new ViewHolder(ItemView);
     }
 
     @Override
@@ -71,17 +69,14 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
         if (expired < now.getTime())
             holder.SetBackgroundColor(Color.rgb(255,172,181));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(), ViewItemActivity.class);
-                intent.putExtra(
-                        "Item_ID",
-                        fridgeItems.get(holder.getAdapterPosition()).Get_ID()
-                );
-                context_t.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent;
+            intent = new Intent(view.getContext(), ViewItemActivity.class);
+            intent.putExtra(
+                    "Item_ID",
+                    fridgeItems.get(holder.getAdapterPosition()).Get_ID()
+            );
+            context_t.startActivity(intent);
         });
     }
 
@@ -91,7 +86,7 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
     }
 
     @Override
-    public void onAttachedToRecyclerView( RecyclerView recycler) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recycler) {
         super.onAttachedToRecyclerView(recycler);
     }
 }
