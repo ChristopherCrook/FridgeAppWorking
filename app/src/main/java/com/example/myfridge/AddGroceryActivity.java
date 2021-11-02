@@ -8,9 +8,11 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +51,21 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
         // Set the CalendarView variable
         calendar = findViewById(R.id.PurchasedCalendarView);
 
+        // Create a placeholder for the date purchased and initialize to
+        // today
+        Date bought = new Date();
+
+        // Create setOnDateChangeListener for the CalendarView
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                Calendar c = Calendar.getInstance();
+
+                c.set(i, i1, i2);
+                bought.setTime(c.getTimeInMillis());
+            }
+        });
+
         // Set up the ADD GROCERY button specifics
         Button addButton;
         addButton = findViewById(R.id.addGroceryItemButton);
@@ -70,10 +87,9 @@ public class AddGroceryActivity extends AppCompatActivity implements AdapterView
             }
 
             // Handle the date fields
-            Date bought;
             Date expiration;
 
-            bought = new Date(calendar.getDate());
+            //bought = new Date(calendar.getDate());
 
             // Calculate expiration Date
             ms_time = ms_time * expire_days;

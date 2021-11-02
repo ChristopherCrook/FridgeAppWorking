@@ -22,4 +22,5 @@
     <string name="add_a_note_to_your_alarm">Add a note to your alarm</string>
     <string name="set_the_date_and_time_for_your_alarm">Set the date and time for your alarm</string>
     <string name="note_relating_to_the_alarm">Note relating to the Alarm</string>
+    <string name="image_of_a_clock">Image of a clock</string>
 </resources>
