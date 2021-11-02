@@ -99,7 +99,7 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
     }
 
     public static String getMonthFromInt(int month) {
-        String monthString;
+        String monthString = null;
         if (month < 0 || month > 11)
             return null;
 
