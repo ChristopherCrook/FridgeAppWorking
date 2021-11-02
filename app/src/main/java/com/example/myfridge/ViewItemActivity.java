@@ -27,8 +27,27 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String name = current.Get_Name();
         String type = current.Get_Type();
-        String date = current.Get_Date().toString();
-        String expire = current.Get_Expiration().toString();
+        //String date = current.Get_Date().toString();
+        //String expire = current.Get_Expiration().toString();
+
+        Calendar date_cal = Calendar.getInstance();
+        date_cal.setTime(current.Get_Date());
+
+        Calendar expire_cal = Calendar.getInstance();
+        expire_cal.setTime(current.Get_Expiration());
+
+        String date_string;
+        String expire_string;
+
+        date_string =
+                FridgeAdapter.getMonthFromInt(date_cal.get(Calendar.MONTH))
+                        + " " + date_cal.get(Calendar.DAY_OF_MONTH)
+                        + ", " + date_cal.get(Calendar.YEAR);
+
+        expire_string =
+                FridgeAdapter.getMonthFromInt(expire_cal.get(Calendar.MONTH))
+                        + " " + expire_cal.get(Calendar.DAY_OF_MONTH)
+                        + ", " + expire_cal.get(Calendar.YEAR);
 
         TextView showName;
         TextView showType;
@@ -42,8 +61,8 @@ public class ViewItemActivity extends AppCompatActivity {
 
         showName.setText(name);
         showType.setText(type);
-        showDate.setText(date);
-        showExpire.setText(expire);
+        showDate.setText(date_string);
+        showExpire.setText(expire_string);
 
         FloatingActionButton alarmButton;
         alarmButton = findViewById(R.id.addAlarmItemViewButton);

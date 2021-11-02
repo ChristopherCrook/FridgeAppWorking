@@ -68,12 +68,11 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
         Calendar cal = Calendar.getInstance();
         cal.setTime(fridgeItems.get(position).Get_Expiration());
 
-        String expires = new String();
+        String expires;
         expires =
                 getMonthFromInt(cal.get(Calendar.MONTH))
                         + " " + cal.get(Calendar.DAY_OF_MONTH)
-                        + ", " + cal.get(Calendar.YEAR
-        );
+                        + ", " + cal.get(Calendar.YEAR);
 
         holder.dateView.setText(expires);
 
@@ -99,8 +98,8 @@ public class FridgeAdapter extends RecyclerView.Adapter<FridgeAdapter.ViewHolder
         });
     }
 
-    public String getMonthFromInt(int month) {
-        String monthString = new String();
+    public static String getMonthFromInt(int month) {
+        String monthString;
         if (month < 0 || month > 11)
             return null;
 
