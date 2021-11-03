@@ -1,16 +1,17 @@
 package com.example.myfridge;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
@@ -40,82 +41,17 @@ public class AddAlarmActivity extends AppCompatActivity {
                 }
             };
 
-    // Callback Method for Permissions
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode,
-            @NonNull String[] permissions,
-            @NonNull int[] grantResults
-    )
-    {
-        super.onRequestPermissionsResult(
-                requestCode,
-                permissions,
-                grantResults
-        );
-        if (requestCode == 1)
-        {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                System.out.println("Permissions Set");
-            else
-                System.out.println("Failed to set permissions; results is " + grantResults[0]);
-        }
-        else
-            System.out.println("Request Code invalid");
-    }
-
-
-    // Method to formally request a permission from the user
-    private void requestAlarmPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM},
-                    1
-            );
-        }
-    }
-
-
-    private void showExplanation() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permission Needed")
-                .setMessage("Rationale")
-                .setPositiveButton(android.R.string.ok, (dialog, id) -> requestAlarmPermission());
-        builder.create().show();
-    }
-
-
-    // Method to Request Alarm Scheduling permissions
-    public void SetAlarmPermissions() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.SCHEDULE_EXACT_ALARM
-        ))
-        {
-            showExplanation();
-        }
-        else
-            requestAlarmPermission();
-    }
-
-
     protected void onCreate(Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
         setContentView(R.layout.activity_add_alarm);
 
-        // Check permissions
-        boolean permission = true;
-
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.SCHEDULE_EXACT_ALARM
-            ) != PackageManager.PERMISSION_GRANTED)
-            permission = false;
-
-        // Check and see if we need to request permissions again
-        if (!permission)
-            SetAlarmPermissions();
+                getApplicationContext(),Manifest.permission.SCHEDULE_EXACT_ALARM)
+                != PackageManager.PERMISSION_GRANTED
+        )
+        {
+            System.out.println("Permissions not set");
+        }
 
         Intent intent = getIntent();
 
@@ -132,8 +68,6 @@ public class AddAlarmActivity extends AppCompatActivity {
         // Process user inputs when user clicks Add Alarm
         Button add = findViewById(R.id.addAlarmFromActivityButton);
         add.setOnClickListener(view -> {
-            NotificationReceiver scheduler = new NotificationReceiver();
-
             Calendar cal = new GregorianCalendar();
             Calendar calFromView = new GregorianCalendar();
             calFromView.setTime(new Date(calendarView.getDate()));
@@ -145,10 +79,8 @@ public class AddAlarmActivity extends AppCompatActivity {
 
             String Title = "Grocery Alarm: " + name;
 
-            scheduler.ScheduleNotification(
-                    getApplicationContext(),
-                    Title,
-                    note.getText().toString(),
+            scheduleNotification(
+                    getNotification(Title, note.getText().toString()),
                     cal.getTimeInMillis(),
                     id
             );
@@ -159,5 +91,24 @@ public class AddAlarmActivity extends AppCompatActivity {
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment(mTimeSetListener);
         newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    private void scheduleNotification(Notification notification, long time, int id) {
+
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, id);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+    }
+
+    private Notification getNotification(String title, String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSmallIcon(R.mipmap.ic_launcher_round);
+        return builder.build();
     }
 }
