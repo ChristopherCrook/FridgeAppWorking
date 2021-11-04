@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/drawable/ic_chris_fridge_vector.xml" value="0.2703125" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity__item_view.xml" value="0.264" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_add_alarm.xml" value="0.264" />
         <entry key="..\:/Users/Christopher/AndroidStudioProjects/MyFridge/app/src/main/res/layout/activity_grocery_add.xml" value="0.264" />

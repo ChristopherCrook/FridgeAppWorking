@@ -88,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#19D621"
         android:clickable="true"
         android:contentDescription="@string/button_to_add_an_alarm_for_the_grocery_item"
         android:focusable="true"
