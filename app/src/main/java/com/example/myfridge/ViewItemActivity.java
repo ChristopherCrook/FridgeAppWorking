@@ -27,8 +27,6 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String name = current.Get_Name();
         String type = current.Get_Type();
-        //String date = current.Get_Date().toString();
-        //String expire = current.Get_Expiration().toString();
 
         Calendar date_cal = Calendar.getInstance();
         date_cal.setTime(current.Get_Date());
@@ -63,16 +61,5 @@ public class ViewItemActivity extends AppCompatActivity {
         showType.setText(type);
         showDate.setText(date_string);
         showExpire.setText(expire_string);
-
-        FloatingActionButton alarmButton;
-        alarmButton = findViewById(R.id.addAlarmItemViewButton);
-        alarmButton.setOnClickListener(view -> {
-            Intent intent1;
-            intent1 = new Intent(view.getContext(), AddAlarmActivity.class);
-            intent1.putExtra("Name", name);
-            intent1.putExtra("Expiration", current.Get_Expiration().getTime());
-            intent1.putExtra("ID", current.Get_ID());
-            startActivity(intent1);
-        });
     }
 }
