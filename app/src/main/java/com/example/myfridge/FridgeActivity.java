@@ -65,13 +65,12 @@ public class FridgeActivity extends AppCompatActivity {
                 // of the item at that position.
                 int position = viewHolder.getAdapterPosition();
 
-                // below line is to notify our item is removed from adapter.
-                adapter.notifyItemRemoved(position);
-
                 // this method is called when item is swiped.
                 // below line is to remove item from our array list.
                 //FridgeItems.remove(viewHolder.getAdapterPosition());
                 theFridge.RemoveItem(deletedCourse, getApplicationContext());
+                // below line is to notify our item is removed from adapter.
+                adapter.notifyItemRemoved(position);
 
                 // below line is to display our snackbar with action.
                 Snackbar.make(
